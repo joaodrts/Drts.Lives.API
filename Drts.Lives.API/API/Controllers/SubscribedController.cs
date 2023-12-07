@@ -24,7 +24,7 @@ namespace Drts.Lives.API.Controllers
                 person.type = PersonTypeEnum.subscribed;
                 await _person.Add(person);
 
-                return StatusCode(201, "Created");
+                return Ok("Successfully created");
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace Drts.Lives.API.Controllers
 
                 await _person.Update(person);
 
-                return NoContent();
+                return Ok("Updated successfully");
 
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace Drts.Lives.API.Controllers
 
                 await _person.Remove(person);
 
-                return NoContent();
+                return Ok("Successfully removed");
             }
             catch (Exception ex)
             {

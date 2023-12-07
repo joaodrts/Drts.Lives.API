@@ -35,7 +35,7 @@ namespace Drts.Lives.API.Controllers
                 if (subscribed == null) return NotFound("Subscribed not found");
 
                 await _enrollment.Add(entity);
-                return StatusCode(201, "Created");
+                return Ok("Successfully created");
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Drts.Lives.API.Controllers
                 entity.id = id;
                 await _enrollment.Update(entity);
 
-                return NoContent();
+                return Ok("Updated successfully");
 
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace Drts.Lives.API.Controllers
 
                 await _enrollment.Remove(enrollment);
 
-                return NoContent();
+                return Ok("Successfully removed");
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace Drts.Lives.API.Controllers
                 enrollment.payment_status = PaymentStatusEnum.processed;
                 await _enrollment.Update(enrollment);
 
-                return NoContent();
+                return Ok("Paid successfully");
 
             }
             catch (Exception ex)
