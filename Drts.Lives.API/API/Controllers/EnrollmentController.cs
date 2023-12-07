@@ -13,8 +13,8 @@ namespace Drts.Lives.API.Controllers
         private readonly IPersonApplication _person;
         private readonly ILiveApplication _live;
 
-        public EnrollmentController(IEnrollmentApplication enrollment, 
-                                    IPersonApplication person, 
+        public EnrollmentController(IEnrollmentApplication enrollment,
+                                    IPersonApplication person,
                                     ILiveApplication live)
         {
             _enrollment = enrollment;
@@ -110,6 +110,28 @@ namespace Drts.Lives.API.Controllers
             catch (Exception ex)
             {
                 return (Enrollment)Enumerable.Empty<Enrollment>();
+            }
+        }
+
+        [HttpPost("/api/enrollment/payment")]
+        public async Task<IActionResult> Payment([FromBody] Payment entity)
+        {
+            try
+            {
+                Enrollment enrollment = await _enrollment.GetByID(entity.enrollment_id);
+                if (enrollment == null) return NotFound("Enrollment not found");
+                if (enrollment.expiration_date < DateTime.Now) return BadRequest("Enrollment has expired");
+                if (enrollment.payment_status == PaymentStatusEnum.processed) return BadRequest("Enrollment is already paid");
+
+                enrollment.payment_status = PaymentStatusEnum.processed;
+                await _enrollment.Update(enrollment);
+
+                return NoContent();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
