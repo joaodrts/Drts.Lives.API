@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Drts.Lives.API.Controllers
@@ -9,10 +10,13 @@ namespace Drts.Lives.API.Controllers
     public class LivesController : ControllerBase
     {
         private readonly ILiveApplication _live;
+        private readonly IPersonApplication _person;
 
-        public LivesController(ILiveApplication live)
+        public LivesController(ILiveApplication live, 
+                               IPersonApplication person)
         {
             _live = live;
+            _person = person;
         }
 
         [HttpPost("/api/lives")]
@@ -20,6 +24,9 @@ namespace Drts.Lives.API.Controllers
         {
             try
             {
+                var instructor = await _person.GetByID(live.instructor_id, PersonTypeEnum.instructor);
+                if (instructor == null) return NotFound("Instructor not found");
+
                 await _live.Add(live);
 
                 return StatusCode(201, "Created");
@@ -35,6 +42,9 @@ namespace Drts.Lives.API.Controllers
         {
             try
             {
+                var instructor = await _person.GetByID(live.instructor_id, PersonTypeEnum.instructor);
+                if (instructor == null) return NotFound("Instructor not found");
+
                 Live liveOld = await _live.GetByID(id);
 
                 if (liveOld == null) return NotFound();

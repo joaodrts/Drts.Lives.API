@@ -22,6 +22,34 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Enrollment", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("expiration_date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("live_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("payment_status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("person_registered_id")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("value")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Enrollments");
+                });
+
             modelBuilder.Entity("Domain.Entities.Live", b =>
                 {
                     b.Property<int>("id")
@@ -32,7 +60,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<int>("duration_in_minutes")
                         .HasColumnType("integer");
@@ -45,7 +74,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("id");
 
@@ -67,6 +97,10 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("instagram")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -74,10 +108,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("type")
                         .HasColumnType("integer");
-
-                    b.Property<string>("url_instagram")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("id");
 

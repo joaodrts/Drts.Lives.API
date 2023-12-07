@@ -1,13 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Enums;
 using Domain.Interfaces.Repositorys;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositorys
 {
@@ -29,22 +23,6 @@ namespace Infrastructure.Repositorys
             }
         }
 
-        public async Task<IEnumerable<Live>> GetAll()
-        {
-            using (var data = new AppDbContext(_optionsBuilder))
-            {
-                return await data.Set<Live>().ToListAsync();
-            }
-        }
-
-        public async Task<Live> GetByID(int id )
-        {
-            using (var data = new AppDbContext(_optionsBuilder))
-            {
-                return await data.Set<Live>().FindAsync(id);
-            }
-        }
-
         public async Task Remove(Live live)
         {
             using (var data = new AppDbContext(_optionsBuilder))
@@ -60,6 +38,22 @@ namespace Infrastructure.Repositorys
             {
                 data.Set<Live>().Update(live);
                 await data.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Live>> GetAll()
+        {
+            using (var data = new AppDbContext(_optionsBuilder))
+            {
+                return await data.Set<Live>().ToListAsync();
+            }
+        }
+
+        public async Task<Live> GetByID(int id)
+        {
+            using (var data = new AppDbContext(_optionsBuilder))
+            {
+                return await data.Set<Live>().FindAsync(id);
             }
         }
     }

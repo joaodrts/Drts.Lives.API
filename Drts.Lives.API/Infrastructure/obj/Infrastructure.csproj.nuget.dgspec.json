@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj": {}
+    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj": {
+    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj",
+        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\obj\\",
+        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj"
+              "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj"
               }
             }
           }
@@ -71,14 +71,14 @@
         }
       }
     },
-    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
+    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
+        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\obj\\",
+        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -107,6 +107,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "DataAnnotationsExtensions": {
+              "target": "Package",
+              "version": "[5.0.1.27, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -134,14 +138,14 @@
         }
       }
     },
-    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\obj\\",
+        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -158,11 +162,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj": {
-                "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj"
+              "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj": {
+                "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj"
               },
-              "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj"
+              "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj"
               }
             }
           }
