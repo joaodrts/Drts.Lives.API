@@ -16,6 +16,16 @@ namespace Domain.Services
         public async Task Add(Person person)
         {
             await _personRepository.Add(person);
+        }        
+
+        public async Task Remove(Person person)
+        {
+            await _personRepository.Remove(person);
+        }
+
+        public async Task Update(Person person)
+        {
+            await _personRepository.Update(person);
         }
 
         public async Task<IEnumerable<Person>> GetAll(PersonTypeEnum personType)
@@ -26,16 +36,6 @@ namespace Domain.Services
         public async Task<Person> GetByID(int id, PersonTypeEnum personType)
         {
             return await _personRepository.GetByID(id, personType);
-        }
-
-        public async Task Remove(Person person)
-        {
-            await _personRepository.Remove(person);
-        }
-
-        public async Task Update(Person person)
-        {
-            await _personRepository.Update(person);
         }
     }
 }

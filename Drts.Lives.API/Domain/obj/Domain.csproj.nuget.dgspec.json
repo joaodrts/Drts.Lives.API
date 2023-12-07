@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {}
+    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
+    "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
+        "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\obj\\",
+        "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "DataAnnotationsExtensions": {
+              "target": "Package",
+              "version": "[5.0.1.27, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",

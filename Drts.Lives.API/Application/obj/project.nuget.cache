@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Ja/LAlK/3aeNQRpOrVT7S2mVDHdvc1wqkBWUrpga4W0yLFzFbqV058QDcO3vPO60teUBPF2/a7wAH+zgurCMjg==",
+  "dgSpecHash": "L/bR9EGJ+fk9M3Mg+uBZprvEgRTqDE0d2GxtyyZVS2wqo5dtOCZLZgLwYKIJc3mNFcbRvNDDQhH16pXKf0yGxw==",
   "success": true,
-  "projectFilePath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj",
+  "projectFilePath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Application\\Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Joao\\.nuget\\packages\\dataannotationsextensions\\5.0.1.27\\dataannotationsextensions.5.0.1.27.nupkg.sha512",
     "C:\\Users\\Joao\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Joao\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\Joao\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
@@ -44,5 +45,16 @@
     "C:\\Users\\Joao\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\Joao\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'DataAnnotationsExtensions 5.0.1.27' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "DataAnnotationsExtensions",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

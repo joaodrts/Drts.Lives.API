@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "DataAnnotationsExtensions/5.0.1.27": {
+        "type": "package",
+        "compile": {
+          "lib/NETFramework40/DataAnnotationsExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/NETFramework40/DataAnnotationsExtensions.dll": {}
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -844,6 +853,18 @@
     }
   },
   "libraries": {
+    "DataAnnotationsExtensions/5.0.1.27": {
+      "sha512": "lw4n4XzY62raAOrrlPdkh4h3PXenReARIazAPzs8AvlkKDAK9pe7kcUL3dh3T095/Q9+LezoXCfjEgDPslmGyg==",
+      "type": "package",
+      "path": "dataannotationsextensions/5.0.1.27",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dataannotationsextensions.5.0.1.27.nupkg.sha512",
+        "dataannotationsextensions.nuspec",
+        "lib/NETFramework40/DataAnnotationsExtensions.dll"
+      ]
+    },
     "Humanizer.Core/2.14.1": {
       "sha512": "lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "type": "package",
@@ -2216,6 +2237,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "DataAnnotationsExtensions >= 5.0.1.27",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0"
     ]
   },
@@ -2225,11 +2247,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
+      "projectPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-      "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Domain\\obj\\",
+      "outputPath": "C:\\dev\\Drts.Lives.API\\Drts.Lives.API\\Drts.Lives.API\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2258,6 +2280,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "DataAnnotationsExtensions": {
+            "target": "Package",
+            "version": "[5.0.1.27, )"
+          },
           "Microsoft.EntityFrameworkCore.Tools": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
@@ -2284,5 +2310,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'DataAnnotationsExtensions 5.0.1.27' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "DataAnnotationsExtensions",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

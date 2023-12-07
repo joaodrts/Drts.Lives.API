@@ -10,6 +10,7 @@ namespace Infrastructure.Data
         }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Live> Lives { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

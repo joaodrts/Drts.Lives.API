@@ -27,6 +27,10 @@ builder.Services.AddScoped<ILiveApplication, ApplicationServiceLive>();
 builder.Services.AddScoped<ILiveService, LiveService>();
 builder.Services.AddScoped<ILiveRepository, LiveRepository>();
 
+builder.Services.AddScoped<IEnrollmentApplication, ApplicationServiceEnrollment>();
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

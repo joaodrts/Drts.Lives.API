@@ -21,7 +21,8 @@ namespace Domain.Entities
         public string email { get; set; }
 
         [Required(ErrorMessage = "instagram is required", AllowEmptyStrings = false)]
-        public string url_instagram { get; set; }
+        [MinLength(4)]
+        public string instagram { get; set; }
 
         [JsonIgnore]
         public PersonTypeEnum type { get; set; }
