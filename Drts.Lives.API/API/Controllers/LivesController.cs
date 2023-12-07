@@ -29,7 +29,7 @@ namespace Drts.Lives.API.Controllers
 
                 await _live.Add(live);
 
-                return StatusCode(201, "Created");
+                return Ok("Successfully created");
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace Drts.Lives.API.Controllers
                 live.id = id;
                 await _live.Update(live);
 
-                return NoContent();
+                return Ok("Updated successfully");
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace Drts.Lives.API.Controllers
 
                 await _live.Remove(live);
 
-                return NoContent();
+                return Ok("Successfully removed");
             }
             catch (Exception ex)
             {
