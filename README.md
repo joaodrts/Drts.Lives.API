@@ -21,25 +21,25 @@ Additionally, there is a dedicated endpoint for making registration payments.
 ---
 ## Instructor
 
-<img src='.github/images/Instructor.png'/>
+<img src='.github/Images/Instructor.png'/>
 
 ---
 
 ## Lives
 
-<img src='.github/images/Lives.png'/>
+<img src='.github/Images/Lives.png'/>
 
 ---
 
 ## Subscribed
 
-<img src='.github/images/Subscribed.png'/>
+<img src='.github/Images/Subscribed.png'/>
 
 ---
 
 ## Enrollment
 
-<img src='.github/images/Enrollment.png'/>
+<img src='.github/Images/Enrollment.png'/>
 
 ---
 
