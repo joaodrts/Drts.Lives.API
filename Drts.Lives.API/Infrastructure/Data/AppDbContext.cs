@@ -23,7 +23,7 @@ namespace Infrastructure.Data
 
         public string GetStringConection()
         {
-            return "Host=localhost; Database=DrtsLive2; Username=postgres; Password=vssql";
+            return "Host=localhost; Database=DrtsLive; Username=drts; Password=vssql";
         }
     }
 }

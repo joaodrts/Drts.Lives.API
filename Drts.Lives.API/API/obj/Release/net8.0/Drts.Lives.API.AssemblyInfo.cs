@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Drts.Lives.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fdd27ae3dd9250d19143f9e6208cd2ea5ff0182c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Drts.Lives.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Drts.Lives.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
