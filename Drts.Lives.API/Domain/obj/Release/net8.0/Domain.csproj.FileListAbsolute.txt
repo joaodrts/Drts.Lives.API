@@ -1,0 +1,15 @@
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\bin\Release\net8.0\Domain.deps.json
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\bin\Release\net8.0\Domain.runtimeconfig.json
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\bin\Release\net8.0\Domain.dll
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\bin\Release\net8.0\Domain.pdb
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.csproj.AssemblyReference.cache
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.AssemblyInfoInputs.cache
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.AssemblyInfo.cs
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.sourcelink.json
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.dll
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\refint\Domain.dll
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.pdb
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\Domain.genruntimeconfig.cache
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\Domain\obj\Release\net8.0\ref\Domain.dll
