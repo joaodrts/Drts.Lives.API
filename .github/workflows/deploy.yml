@@ -16,7 +16,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{secrets.SECRET_SSH}}
         ARGS: "-rltgoDzvO --delete"
-        SOURCE: "../../Drts.Lives.API/API/bin/Release/net8.0/publish"
+        SOURCE: "./Drts.Lives.API/API/bin/Release/net8.0/publish"
         REMOTE_HOST: ${{secrets.SECRET_HOST}}
         REMOTE_USER: ${{secrets.SECRET_USER}}
         TARGET: ${{secrets.SECRET_TARGET_DIR}}
