@@ -1,0 +1,22 @@
+name: Push-to-EC2
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the files
+      uses: actions/checkout@v3
+
+    - name: Copy files with SSH
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.SECRET_SSH}}
+        ARGS: "-rltgoDzvO --delete"
+        SOURCE: "../../Drts.Lives.API/API/bin/Release/net8.0/publish"
+        REMOTE_HOST: ${{secrets.SECRET_HOST}}
+        REMOTE_USER: ${{secrets.SECRET_USER}}
+        TARGET: ${{secrets.SECRET_TARGET_DIR}}
