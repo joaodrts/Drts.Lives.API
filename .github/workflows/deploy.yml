@@ -13,9 +13,9 @@ jobs:
 
     - name: Release
       run: |
-        cd ./Drts.Lives.API/API
+        cd ../../Drts.Lives.API/API
         dotnet publish -c Release
-        cd ../../.github
+        cd ../../.github/workflows
 
     - name: Copy files with PowerShell
       run: |
