@@ -32,8 +32,6 @@ jobs:
         Write-Host "Source: $source"
         Write-Host "Destination: $destination"
         
-        if (!(Test-Path -Path $destination -IsValid)) {
-          New-Item -ItemType Directory -Force -Path $destination
-        }
-        
-        Copy-Item -Path $source -Destination $destination -Recurse -Force
+        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential ${{ secrets.SECRET_CREDENTIAL }}
+        Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
+        Remove-PSSession $session
