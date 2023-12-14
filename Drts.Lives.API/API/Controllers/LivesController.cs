@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -20,13 +21,21 @@ namespace Drts.Lives.API.Controllers
         }
 
         [HttpPost("/api/lives")]
-        public async Task<IActionResult> Create([FromBody] Live live)
+        public async Task<IActionResult> Create([FromBody] LiveDTO liveDTO)
         {
             try
             {
-                var instructor = await _person.GetByID(live.instructor_id, PersonTypeEnum.instructor);
+                var instructor = await _person.GetByID(liveDTO.instructor_id, PersonTypeEnum.instructor);
                 if (instructor == null) return NotFound("Instructor not found");
 
+                Live live = new()
+                {
+                    title = liveDTO.title,
+                    description = liveDTO.description,
+                    instructor_id = liveDTO.id,
+                    start_date = liveDTO.start_date,
+                    duration_in_minutes = liveDTO.duration_in_minutes,
+                };
                 await _live.Add(live);
 
                 return Ok("Successfully created");
@@ -38,18 +47,25 @@ namespace Drts.Lives.API.Controllers
         }
 
         [HttpPut("/api/lives/{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] Live live)
+        public async Task<IActionResult> Edit(int id, [FromBody] LiveDTO liveDTO)
         {
             try
             {
-                var instructor = await _person.GetByID(live.instructor_id, PersonTypeEnum.instructor);
+                var instructor = await _person.GetByID(liveDTO.instructor_id, PersonTypeEnum.instructor);
                 if (instructor == null) return NotFound("Instructor not found");
 
                 Live liveOld = await _live.GetByID(id);
-
                 if (liveOld == null) return NotFound();
 
-                live.id = id;
+                Live live = new()
+                {
+                    id = liveDTO.id,
+                    title = liveDTO.title,
+                    description = liveDTO.description,
+                    instructor_id = liveDTO.id,
+                    start_date = liveDTO.start_date,
+                    duration_in_minutes = liveDTO.duration_in_minutes,
+                };
                 await _live.Update(live);
 
                 return Ok("Updated successfully");

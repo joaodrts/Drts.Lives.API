@@ -117,6 +117,7 @@ C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Drts.Li
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Drts.Lives.API.dll
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Drts.Lives.API.pdb
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Autofac.dll
+C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\DataAnnotationsExtensions.dll
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Humanizer.dll
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -221,4 +222,3 @@ C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\obj\Debug\net8.0\refint\
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\obj\Debug\net8.0\Drts.Lives.API.pdb
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\obj\Debug\net8.0\Drts.Lives.API.genruntimeconfig.cache
 C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\obj\Debug\net8.0\ref\Drts.Lives.API.dll
-C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Debug\net8.0\DataAnnotationsExtensions.dll
