@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\dev\Drts.Lives.API\Drts.Lives.API\Drts.Lives.API\API\bin\Release\net8.0\publish\</_PublishTargetUrl>
-    <History>True|2023-12-12T05:10:44.9592247Z;True|2023-12-11T02:46:42.7140743-03:00;True|2023-12-11T02:38:17.1526372-03:00;True|2023-12-10T23:20:14.3107435-03:00;</History>
+    <History>True|2023-12-13T10:30:25.4903119Z;True|2023-12-12T07:17:16.3461666-03:00;True|2023-12-12T02:10:44.9592247-03:00;True|2023-12-11T02:46:42.7140743-03:00;True|2023-12-11T02:38:17.1526372-03:00;True|2023-12-10T23:20:14.3107435-03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

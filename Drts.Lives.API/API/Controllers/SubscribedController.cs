@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,18 @@ namespace Drts.Lives.API.Controllers
         }
 
         [HttpPost("/api/subscribed")]
-        public async Task<IActionResult> Create([FromBody] Person person)
+        public async Task<IActionResult> Create([FromBody] PersonDTO personDTO)
         {
             try
             {
-                person.type = PersonTypeEnum.subscribed;
+                Person person = new()
+                {
+                    name = personDTO.name,
+                    date_of_birth = personDTO.date_of_birth,
+                    email = personDTO.email,
+                    instagram = personDTO.instagram,
+                    type = PersonTypeEnum.subscribed
+                };
                 await _person.Add(person);
 
                 return Ok("Successfully created");
@@ -33,17 +41,22 @@ namespace Drts.Lives.API.Controllers
         }
 
         [HttpPut("/api/subscribed/{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] Person person)
+        public async Task<IActionResult> Edit(int id, [FromBody] PersonDTO personDTO)
         {
             try
             {
                 Person personOld = await _person.GetByID(id, PersonTypeEnum.subscribed);
-
                 if (personOld == null) return NotFound();
 
-                person.id = id;
-                person.type = PersonTypeEnum.subscribed;
-
+                Person person = new()
+                {
+                    id = id,
+                    name = personDTO.name,
+                    date_of_birth = personDTO.date_of_birth,
+                    email = personDTO.email,
+                    instagram = personDTO.instagram,
+                    type = PersonTypeEnum.subscribed
+                };
                 await _person.Update(person);
 
                 return Ok("Updated successfully");
@@ -61,7 +74,6 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 Person person = await _person.GetByID(id, PersonTypeEnum.subscribed);
-
                 if (person == null) return NotFound();
 
                 await _person.Remove(person);

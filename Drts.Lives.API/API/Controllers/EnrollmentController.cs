@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -24,17 +25,26 @@ namespace Drts.Lives.API.Controllers
         }
 
         [HttpPost("/api/enrollment")]
-        public async Task<IActionResult> Create([FromBody] Enrollment entity)
+        public async Task<IActionResult> Create([FromBody] EnrollmentDTO entityDTO)
         {
             try
             {
-                var live = await _live.GetByID(entity.live_id);
+                var live = await _live.GetByID(entityDTO.live_id);
                 if (live == null) return NotFound("Live not found");
 
-                var subscribed = await _person.GetByID(entity.person_registered_id, PersonTypeEnum.subscribed);
+                var subscribed = await _person.GetByID(entityDTO.person_registered_id, PersonTypeEnum.subscribed);
                 if (subscribed == null) return NotFound("Subscribed not found");
 
-                await _enrollment.Add(entity);
+                Enrollment enrollment = new()
+                {
+                    live_id = entityDTO.live_id,
+                    person_registered_id = entityDTO.person_registered_id,
+                    value = entityDTO.value,
+                    expiration_date = entityDTO.expiration_date,
+                    payment_status = entityDTO.payment_status
+                };
+
+                await _enrollment.Add(enrollment);
                 return Ok("Successfully created");
             }
             catch (Exception ex)
@@ -44,21 +54,29 @@ namespace Drts.Lives.API.Controllers
         }
 
         [HttpPut("/api/enrollment/{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] Enrollment entity)
+        public async Task<IActionResult> Edit(int id, [FromBody] EnrollmentDTO entityDTO)
         {
             try
             {
                 Enrollment enrollment = await _enrollment.GetByID(id);
                 if (enrollment == null) return NotFound();
 
-                var live = await _live.GetByID(entity.live_id);
+                var live = await _live.GetByID(entityDTO.live_id);
                 if (live == null) return NotFound("Live not found");
 
-                var subscribed = await _person.GetByID(entity.person_registered_id, PersonTypeEnum.subscribed);
+                var subscribed = await _person.GetByID(entityDTO.person_registered_id, PersonTypeEnum.subscribed);
                 if (subscribed == null) return NotFound("Subscribed not found");
 
-                entity.id = id;
-                await _enrollment.Update(entity);
+                Enrollment enrollmentNew = new()
+                {
+                    id = id,
+                    live_id = entityDTO.live_id,
+                    person_registered_id = entityDTO.person_registered_id,
+                    value = entityDTO.value,
+                    expiration_date = entityDTO.expiration_date,
+                    payment_status = entityDTO.payment_status
+                };
+                await _enrollment.Update(enrollmentNew);
 
                 return Ok("Updated successfully");
 
