@@ -31,7 +31,11 @@ jobs:
 
         Write-Host "Source: $source"
         Write-Host "Destination: $destination"
-        
-        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential ${{ secrets.SECRET_CREDENTIAL }}
+
+        # Criar um objeto de credencial
+        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText ${{ secrets.SECRET_SSH }} -Force)
+
+        # Usar PowerShell Remoting para copiar arquivos
+        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
         Remove-PSSession $session
