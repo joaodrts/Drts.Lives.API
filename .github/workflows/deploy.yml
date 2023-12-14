@@ -13,7 +13,7 @@ jobs:
 
     - name: Release
       run: |
-        $source = "./Drts.Lives.API/API"
+        cd ./Drts.Lives.API/API
         dotnet publish -c Release
 
     - name: Copy files with PowerShell
