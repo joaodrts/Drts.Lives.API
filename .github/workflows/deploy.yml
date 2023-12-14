@@ -32,7 +32,7 @@ jobs:
         Write-Host "Source: $source"
         Write-Host "Destination: $destination"
 
-        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String ${{ secrets.SECRET_SSH }})
+        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
         $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
