@@ -11,12 +11,6 @@ jobs:
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    - name: Release
-      run: |
-        cd ../../Drts.Lives.API/API
-        dotnet publish -c Release
-        cd ../../.github/workflows
-
     - name: Copy files with PowerShell
       run: |
         $source = "./Drts.Lives.API/API/bin/Release/net8.0/publish"
