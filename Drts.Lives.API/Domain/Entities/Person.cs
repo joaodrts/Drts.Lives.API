@@ -7,23 +7,11 @@ namespace Domain.Entities
     public class Person
     {
         [Key]
-        [JsonIgnore]
         public int id { get; set; }
-
-        [Required(ErrorMessage = "Username is required", AllowEmptyStrings = false)]
-        [StringLength(20, MinimumLength = 4)]
         public string name { get; set; }
         public DateTime date_of_birth { get; set; }
-
-        [Required(ErrorMessage = "Email is required", AllowEmptyStrings = false)]
-        [DataType(DataType.EmailAddress)]
-        [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please provide a valid email")]
         public string email { get; set; }
-
-        [Required(ErrorMessage = "instagram is required", AllowEmptyStrings = false)]
-        [MinLength(4)]
         public string instagram { get; set; }
-
         [JsonIgnore]
         public PersonTypeEnum type { get; set; }
     }
