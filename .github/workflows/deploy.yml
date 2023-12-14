@@ -14,7 +14,7 @@ jobs:
     - name: Copy files with PowerShell
       run: |
         $source = "./Drts.Lives.API/API/bin/Release/net8.0/publish"
-        $destination = ${{secrets.SECRET_TARGET_DIR}}
+        $destination = "${{ secrets.SECRET_TARGET_DIR }}"
         
         if (!(Test-Path -Path $destination -IsValid)) {
           New-Item -ItemType Directory -Force -Path $destination
