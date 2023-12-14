@@ -20,7 +20,7 @@ jobs:
         
     - name: List Published Files
       run: |
-        $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/publish/
+        $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
         Write-Host "Published Files:"
         $publishedFiles | ForEach-Object { Write-Host $_.FullName }
 
