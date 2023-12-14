@@ -15,6 +15,7 @@ jobs:
       run: |
         cd ./Drts.Lives.API/API
         dotnet publish -c Release
+        cd ../../.github
 
     - name: Copy files with PowerShell
       run: |
