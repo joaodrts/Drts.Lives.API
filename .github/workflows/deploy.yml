@@ -12,7 +12,9 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Release
-      run: dotnet publish
+      run: |
+        $source = "./Drts.Lives.API/API"
+        dotnet publish -c Release
 
     - name: Copy files with PowerShell
       run: |
