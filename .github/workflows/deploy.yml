@@ -5,18 +5,19 @@ on:
       - main
 jobs:
   deploy:
-    name: Deploy to EC2
+    name: Deploy to Windows Server
     runs-on: windows-latest
     steps:
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    - name: Copy files with SSH
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{secrets.SECRET_SSH}}
-        ARGS: "-rltgoDzvO --delete"
-        SOURCE: "./Drts.Lives.API/API/bin/Release/net8.0/publish"
-        REMOTE_HOST: ${{secrets.SECRET_HOST}}
-        REMOTE_USER: ${{secrets.SECRET_USER}}
-        TARGET: ${{secrets.SECRET_TARGET_DIR}}
+    - name: Copy files with PowerShell
+      run: |
+        $source = "./Drts.Lives.API/API/bin/Release/net8.0/publish"
+        $destination = ${{secrets.SECRET_TARGET_DIR}}
+        
+        if (!(Test-Path -Path $destination -IsValid)) {
+          New-Item -ItemType Directory -Force -Path $destination
+        }
+        
+        Copy-Item -Path $source -Destination $destination -Recurse -Force
