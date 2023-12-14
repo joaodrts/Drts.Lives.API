@@ -8,6 +8,13 @@ jobs:
     name: Deploy to Windows Server
     runs-on: windows-latest
     steps:
+
+    - name: Release
+      run: |
+        cd ./Drts.Lives.API/API
+        dotnet publish -c Release
+        cd ../../.github
+        
     - name: Checkout the files
       uses: actions/checkout@v3
 
