@@ -8,14 +8,9 @@ namespace Drts.Lives.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InstructorsController : ControllerBase
+    public class InstructorsController(IPersonApplication person) : ControllerBase
     {
-        private readonly IPersonApplication _person;
-
-        public InstructorsController(IPersonApplication person)
-        {
-            _person = person;
-        }
+        private readonly IPersonApplication _person = person;
 
         [HttpPost("/api/instructors")]
         public async Task<IActionResult> Create([FromBody] PersonDTO personDTO)
@@ -30,6 +25,10 @@ namespace Drts.Lives.API.Controllers
                     instagram = personDTO.instagram,
                     type = PersonTypeEnum.instructor
                 };
+               
+                if (await _person.DuplicatEmail(person)) return BadRequest(new { ErrorMessage = $"Email is already in use. ({person.email}) " });
+                if (await _person.DuplicatInstagram(person)) return BadRequest(new { ErrorMessage = $"Instagram is already in use. ({person.instagram})" });
+
                 await _person.Add(person);
 
                 return Ok("Successfully created");
@@ -46,7 +45,7 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 Person personOld = await _person.GetByID(id, PersonTypeEnum.instructor);
-                if (personOld == null) return NotFound();
+                if (personOld == null) return NotFound(new {ErrorMessage = $"Instructor not found. (id {id})"});
 
                 Person person = new()
                 {
@@ -57,6 +56,9 @@ namespace Drts.Lives.API.Controllers
                     instagram = personDTO.instagram,
                     type = PersonTypeEnum.instructor
                 };
+
+                if (await _person.DuplicatEmail(person)) return BadRequest(new { ErrorMessage = $"Email is already in use. ({person.email})" });
+                if (await _person.DuplicatInstagram(person)) return BadRequest(new { ErrorMessage = $"Instagram is already in use. ({person.instagram})" });
 
                 await _person.Update(person);
 
@@ -75,7 +77,7 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 Person person = await _person.GetByID(id, PersonTypeEnum.instructor);
-                if (person == null) return NotFound();
+                if (person == null) return NotFound(new { ErrorMessage = $"Instructor not found. (id {id})" });
 
                 await _person.Remove(person);
 
@@ -94,7 +96,7 @@ namespace Drts.Lives.API.Controllers
             {
                 return await _person.GetAll(PersonTypeEnum.instructor);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Enumerable.Empty<Person>();
             }
@@ -107,7 +109,7 @@ namespace Drts.Lives.API.Controllers
             {
                 return await _person.GetByID(id, PersonTypeEnum.instructor);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return (Person)Enumerable.Empty<Person>();
             }

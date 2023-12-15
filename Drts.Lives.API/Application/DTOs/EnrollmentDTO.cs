@@ -12,7 +12,6 @@ namespace Application.DTOs
 {
     public class EnrollmentDTO
     {
-        [Key]
         [JsonIgnore]
         public int id { get; set; }
 

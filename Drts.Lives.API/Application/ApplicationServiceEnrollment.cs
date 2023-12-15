@@ -37,5 +37,10 @@ namespace Application
         {
             return await _service.GetByID(id);
         }
+
+        public async Task<bool> IsDuplicat(Enrollment entity)
+        {
+            return await _service.IsDuplicat(entity);
+        }
     }
 }

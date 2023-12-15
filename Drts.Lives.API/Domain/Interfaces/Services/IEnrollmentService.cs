@@ -9,5 +9,6 @@ namespace Domain.Interfaces.Services
         Task Remove(Enrollment entity);
         Task<IEnumerable<Enrollment>> GetAll();
         Task<Enrollment> GetByID(int id);
+        Task<bool> IsDuplicat(Enrollment entity);
     }
 }

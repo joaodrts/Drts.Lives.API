@@ -10,5 +10,7 @@ namespace Application.Interfaces
         Task Remove(Person person);
         Task<IEnumerable<Person>> GetAll(PersonTypeEnum personType);
         Task<Person> GetByID(int id, PersonTypeEnum personType);
+        Task<bool> DuplicatEmail(Person person);
+        Task<bool> DuplicatInstagram(Person person);
     }
 }

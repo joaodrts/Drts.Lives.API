@@ -37,5 +37,15 @@ namespace Domain.Services
         {
             return await _personRepository.GetByID(id, personType);
         }
+
+        public async Task<bool> DuplicatEmail(Person person)
+        {
+            return await _personRepository.DuplicatEmail(person);
+        }
+
+        public async Task<bool> DuplicatInstagram(Person person)
+        {
+            return await _personRepository.DuplicatInstagram(person);
+        }
     }
 }

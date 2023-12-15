@@ -38,5 +38,16 @@ namespace Application
         {
             await _personService.Update(person);
         }
+
+        public async Task<bool> DuplicatEmail(Person person)
+        {
+            return await _personService.DuplicatEmail(person);
+        }
+
+        public async Task<bool> DuplicatInstagram(Person person)
+        {
+            return await _personService.DuplicatInstagram(person);
+        }
+
     }
 }
