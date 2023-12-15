@@ -34,6 +34,6 @@ jobs:
 
         $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
-        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -SessionOption (New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck)
+        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -Authentication Basic -SessionOption (New-PSSessionOption -SkipCACheck -SkipCNCheck -SkipRevocationCheck)
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
         Remove-PSSession $session
