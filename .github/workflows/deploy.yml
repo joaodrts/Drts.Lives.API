@@ -12,12 +12,6 @@ jobs:
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    - name: Release
-      run: |
-        cd ./Drts.Lives.API/API
-        dotnet publish -c Release
-        cd ../../.github
-        
     - name: List Published Files
       run: |
         $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
@@ -37,6 +31,6 @@ jobs:
         
         # Usar PowerShell Remoting para copiar arquivos (com HTTP)
         $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
-        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -UseSSL:$false
+        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -Authentication Basic
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
         Remove-PSSession $session
