@@ -21,16 +21,16 @@ jobs:
     - name: Copy files with PowerShell
       run: |
         $source = "./Drts.Lives.API/API/bin/Release/net8.0/publish/"
-        $destination = "${{ secrets.SECRET_TARGET_DIR }}"
+        $destination = "${{ secrets.SECRET_TARGET_DIR }}/publish/"
         
-        Write-Host "Source: $source"
-        Write-Host "Destination: $destination"
+        Write-Host "Copying files from $source to $destination"
         
-        # Adicione o servidor à lista de hosts confiáveis no cliente
-        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
-        
-        # Usar PowerShell Remoting para copiar arquivos (com HTTP)
+        # Configure a conexão remota (usando HTTP ou HTTPS)
         $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
-        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -Authentication Basic
+        $session = New-PSSession -ComputerName http://${{ secrets.SECRET_HOST }} -Credential $credential
+        
+        # Copie os arquivos para o destino no servidor
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
+        
+        # Remova a sessão remota
         Remove-PSSession $session
