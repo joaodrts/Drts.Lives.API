@@ -28,14 +28,15 @@ jobs:
       run: |
         $source = "./Drts.Lives.API/API/bin/Release/net8.0/publish/"
         $destination = "${{ secrets.SECRET_TARGET_DIR }}"
-
+        
         Write-Host "Source: $source"
         Write-Host "Destination: $destination"
-
-        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
-
-        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
-        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -UseSSL
+        # Adicione o servidor à lista de hosts confiáveis no cliente
+        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
+        
+        # Usar PowerShell Remoting para copiar arquivos (com HTTP)
+        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
+        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -UseSSL:$false
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
         Remove-PSSession $session
