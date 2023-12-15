@@ -17,4 +17,4 @@ jobs:
           server: ${{ secrets.SECRET_HOST }}
           username: ${{ secrets.SECRET_USER }}
           password: ${{ secrets.SECRET_SENHA }}
-          server-dir: ${{ secrets.SECRET_TARGET_DIR }}
+          server-dir: "${{ secrets.SECRET_TARGET_DIR }}/"
