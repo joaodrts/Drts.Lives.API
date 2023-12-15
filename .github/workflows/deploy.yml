@@ -31,7 +31,7 @@ jobs:
         
         # Copie os arquivos para o destino no servidor
         $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
-        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}/publish/" -Recurse -Force -ToSession $session
+        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}" -Recurse -Force -ToSession $session
         
         # Remova a sessão remota
         # Remove-PSSession $session
