@@ -11,6 +11,7 @@ namespace Application.DTOs
 {
     public class PersonDTO
     {
+        [JsonIgnore]
         public int id { get; set; }
 
         [Required(ErrorMessage = "Username is required", AllowEmptyStrings = false)]

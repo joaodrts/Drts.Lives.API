@@ -37,6 +37,11 @@ namespace Domain.Services
         {
             return await _repository.GetByID(id);
         }
+
+        public async Task<bool> IsDuplicat(Enrollment entity)
+        {
+            return await _repository.IsDuplicat(entity);
+        }
     }
 
 }

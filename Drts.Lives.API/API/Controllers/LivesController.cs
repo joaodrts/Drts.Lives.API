@@ -8,17 +8,11 @@ namespace Drts.Lives.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LivesController : ControllerBase
+    public class LivesController(ILiveApplication live,
+                                 IPersonApplication person) : ControllerBase
     {
-        private readonly ILiveApplication _live;
-        private readonly IPersonApplication _person;
-
-        public LivesController(ILiveApplication live, 
-                               IPersonApplication person)
-        {
-            _live = live;
-            _person = person;
-        }
+        private readonly ILiveApplication _live = live;
+        private readonly IPersonApplication _person = person;
 
         [HttpPost("/api/lives")]
         public async Task<IActionResult> Create([FromBody] LiveDTO liveDTO)
@@ -26,13 +20,13 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 var instructor = await _person.GetByID(liveDTO.instructor_id, PersonTypeEnum.instructor);
-                if (instructor == null) return NotFound("Instructor not found");
+                if (instructor == null) return NotFound(new {ErrorMessage = $"Instructor not found. (id {liveDTO.instructor_id})" });
 
                 Live live = new()
                 {
                     title = liveDTO.title,
                     description = liveDTO.description,
-                    instructor_id = liveDTO.id,
+                    instructor_id = liveDTO.instructor_id,
                     start_date = liveDTO.start_date,
                     duration_in_minutes = liveDTO.duration_in_minutes,
                 };
@@ -52,17 +46,17 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 var instructor = await _person.GetByID(liveDTO.instructor_id, PersonTypeEnum.instructor);
-                if (instructor == null) return NotFound("Instructor not found");
+                if (instructor == null) return NotFound(new { ErrorMessage = $"Instructor not found. (id {liveDTO.instructor_id})" });
 
                 Live liveOld = await _live.GetByID(id);
-                if (liveOld == null) return NotFound();
+                if (liveOld == null) return NotFound(new {ErrorMessage = $"Live not found. (id {id})"});
 
                 Live live = new()
                 {
-                    id = liveDTO.id,
+                    id = id,
                     title = liveDTO.title,
                     description = liveDTO.description,
-                    instructor_id = liveDTO.id,
+                    instructor_id = liveDTO.instructor_id,
                     start_date = liveDTO.start_date,
                     duration_in_minutes = liveDTO.duration_in_minutes,
                 };
@@ -82,7 +76,7 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 Live live = await _live.GetByID(id);
-                if (live == null) return NotFound();
+                if (live == null) return NotFound(new {ErrorMessage = $"Live not found. (id {id})"});
 
                 await _live.Remove(live);
 
@@ -101,7 +95,7 @@ namespace Drts.Lives.API.Controllers
             {
                 return await _live.GetAll();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Enumerable.Empty<Live>();
             }
@@ -114,7 +108,7 @@ namespace Drts.Lives.API.Controllers
             {
                 return await _live.GetByID(id);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return (Live)Enumerable.Empty<Live>();
             }

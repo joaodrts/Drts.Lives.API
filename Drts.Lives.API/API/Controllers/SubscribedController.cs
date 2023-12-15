@@ -8,14 +8,9 @@ namespace Drts.Lives.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SubscribedController : ControllerBase
+    public class SubscribedController(IPersonApplication person) : ControllerBase
     {
-        private readonly IPersonApplication _person;
-
-        public SubscribedController(IPersonApplication person)
-        {
-            _person = person;
-        }
+        private readonly IPersonApplication _person = person;
 
         [HttpPost("/api/subscribed")]
         public async Task<IActionResult> Create([FromBody] PersonDTO personDTO)
@@ -30,6 +25,10 @@ namespace Drts.Lives.API.Controllers
                     instagram = personDTO.instagram,
                     type = PersonTypeEnum.subscribed
                 };
+
+                if (await _person.DuplicatEmail(person)) return BadRequest(new { ErrorMessage = $"Email is already in use. ({person.email}) " });
+                if (await _person.DuplicatInstagram(person)) return BadRequest(new { ErrorMessage = $"Instagram is already in use. ({person.instagram})" });
+
                 await _person.Add(person);
 
                 return Ok("Successfully created");
@@ -46,7 +45,7 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 Person personOld = await _person.GetByID(id, PersonTypeEnum.subscribed);
-                if (personOld == null) return NotFound();
+                if (personOld == null) return NotFound(new {ErrorMessage = $"Subscribed not found. (id {id})" });
 
                 Person person = new()
                 {
@@ -57,10 +56,13 @@ namespace Drts.Lives.API.Controllers
                     instagram = personDTO.instagram,
                     type = PersonTypeEnum.subscribed
                 };
+
+                if (await _person.DuplicatEmail(person)) return BadRequest(new { ErrorMessage = $"Email is already in use. ({person.email}) " });
+                if (await _person.DuplicatInstagram(person)) return BadRequest(new { ErrorMessage = $"Instagram is already in use. ({person.instagram})" });
+
                 await _person.Update(person);
 
                 return Ok("Updated successfully");
-
             }
             catch (Exception ex)
             {
@@ -74,7 +76,7 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 Person person = await _person.GetByID(id, PersonTypeEnum.subscribed);
-                if (person == null) return NotFound();
+                if (person == null) return NotFound(new { ErrorMessage = $"Subscribed not found. (id {id})" });
 
                 await _person.Remove(person);
 
@@ -92,7 +94,8 @@ namespace Drts.Lives.API.Controllers
             try
             {
                 return await _person.GetAll(PersonTypeEnum.subscribed);
-            }catch(Exception ex)
+            }
+            catch (Exception)
             {
                 return Enumerable.Empty<Person>();
             }
@@ -105,7 +108,7 @@ namespace Drts.Lives.API.Controllers
             {
                 return await _person.GetByID(id, PersonTypeEnum.subscribed);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return (Person)Enumerable.Empty<Person>();
             }
