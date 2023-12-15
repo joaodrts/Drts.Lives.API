@@ -32,10 +32,8 @@ jobs:
         Write-Host "Source: $source"
         Write-Host "Destination: $destination"
 
-        winrm set winrm/config/client/auth @{Basic="true"}
-
         $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
-        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential
+        $session = New-PSSession -ComputerName ${{ secrets.SECRET_HOST }} -Credential $credential -Authentication Basic
         Copy-Item -Path $source -Destination $destination -Recurse -Force -ToSession $session
         Remove-PSSession $session
