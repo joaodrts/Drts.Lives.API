@@ -4,14 +4,9 @@ using Domain.Interfaces.Services;
 
 namespace Application
 {
-    public class ApplicationServiceLive : ILiveApplication
+    public class ApplicationServiceLive(ILiveService liveService) : ILiveApplication
     {
-        private readonly ILiveService _liveService;
-
-        public ApplicationServiceLive(ILiveService liveService)
-        {
-            _liveService = liveService;
-        }
+        private readonly ILiveService _liveService = liveService;
 
         public async Task Add(Live live)
         {

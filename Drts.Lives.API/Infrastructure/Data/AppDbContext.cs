@@ -3,11 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Live> Lives { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
@@ -21,7 +18,7 @@ namespace Infrastructure.Data
             }
         }
 
-        public string GetStringConection()
+        public static string GetStringConection()
         {
             return "Host=localhost; Database=DrtsLive; Username=postgres; Password=vssql";
         }

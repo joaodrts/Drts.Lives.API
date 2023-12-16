@@ -4,14 +4,9 @@ using Domain.Interfaces.Services;
 
 namespace Domain.Services
 {
-    public class EnrollmentService : IEnrollmentService
+    public class EnrollmentService(IEnrollmentRepository repository) : IEnrollmentService
     {
-        private readonly IEnrollmentRepository _repository;
-
-        public EnrollmentService(IEnrollmentRepository repository)
-        {
-            _repository = repository;
-        }
+        private readonly IEnrollmentRepository _repository = repository;
 
         public async Task Add(Enrollment entity)
         {
