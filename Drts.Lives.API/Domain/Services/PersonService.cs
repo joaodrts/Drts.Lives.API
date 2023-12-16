@@ -5,14 +5,10 @@ using Domain.Interfaces.Services;
 
 namespace Domain.Services
 {
-    public class PersonService : IPersonService
+    public class PersonService(IPersonRepository personRepository) : IPersonService
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IPersonRepository _personRepository = personRepository;
 
-        public PersonService(IPersonRepository personRepository)
-        {
-            _personRepository = personRepository;
-        }
         public async Task Add(Person person)
         {
             await _personRepository.Add(person);

@@ -4,14 +4,10 @@ using Domain.Interfaces.Services;
 
 namespace Domain.Services
 {
-    public class LiveService : ILiveService
+    public class LiveService(ILiveRepository liveRepository) : ILiveService
     {
-        private readonly ILiveRepository _liveRepository;
+        private readonly ILiveRepository _liveRepository = liveRepository;
 
-        public LiveService(ILiveRepository liveRepository)
-        {
-            _liveRepository = liveRepository;
-        }
         public async Task Add(Live live)
         {
             await _liveRepository.Add(live);

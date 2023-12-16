@@ -5,14 +5,9 @@ using Domain.Interfaces.Services;
 
 namespace Application
 {
-    public class ApplicationServicePerson : IPersonApplication
+    public class ApplicationServicePerson(IPersonService personService) : IPersonApplication
     {
-        private readonly IPersonService _personService;
-
-        public ApplicationServicePerson(IPersonService personService)
-        {
-            _personService = personService;
-        }
+        private readonly IPersonService _personService = personService;
 
         public async Task Add(Person person)
         {
