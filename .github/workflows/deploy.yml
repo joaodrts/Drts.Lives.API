@@ -1,38 +1,27 @@
-name: Push-to-EC2
+name: Deploy to AWS EC2
+
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
-    name: Deploy to Windows Server
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
     steps:
-    
-    - name: Checkout the files
-      uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    #- name: List Published Files
-    #  run: |
-    #    $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
-    #    Write-Host "Published Files:"
-    #    $publishedFiles | ForEach-Object { Write-Host $_.FullName }
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.SECRET_HOST }}
+        aws-secret-access-key: ${{ secrets.SECRET_SSH }}
+        aws-region: sa-east-1c
 
-    - name: Copy files with PowerShell
+    - name: Deploy to EC2
       run: |
-        # Habilitar temporariamente o tráfego não criptografado
-        Set-Item WSMan:\localhost\Client\AllowUnencrypted -Value $true
-        
-        # Adicionar o servidor à lista de hosts confiáveis
-        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
-        
-        # Configure a conexão remota (usando HTTP ou HTTPS)
-        #$credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
-        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, ${{ secrets.SECRET_SENHA}}
-        
-        # Copie os arquivos para o destino no servidor
-        $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
-        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}" -Recurse -Force -ToSession $session
-        
-        # Remova a sessão remota
-        # Remove-PSSession $session
+        aws ec2 describe-instances --instance-ids $(cat aws-config.json | jq -r '.instanceId')
+        # Adicione os comandos necessários para realizar o deploy na sua instância EC2 aqui
+        scp -i  ${{ secrets.SECRET_SSH }} "./Drts.Lives.API/API/bin/Release/net8.0/publish/" ${{ secrets.SECRET_USER }}@${{ secrets.SECRET_HOST }}:{{ secrets.SECRET_HOST }}
