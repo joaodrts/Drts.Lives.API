@@ -22,7 +22,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        aws ec2 describe-instances --instance-ids $(cat /workflows/aws-config.json | jq -r '.instanceId')
+        aws ec2 describe-instances --instance-ids $(cat /Drts.Lives.API/.github/workflows/aws-config.json | jq -r '.instanceId')
         # Adicione os comandos necessários para realizar o deploy na sua instância EC2 aqui
     
         # Corrigindo e completando o comando scp
