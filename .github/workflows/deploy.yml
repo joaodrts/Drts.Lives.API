@@ -27,7 +27,8 @@ jobs:
         Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
         
         # Configure a conexão remota (usando HTTP ou HTTPS)
-        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
+        #$credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
+        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, ${{ secrets.SECRET_SENHA}}
         
         # Copie os arquivos para o destino no servidor
         $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
