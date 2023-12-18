@@ -18,7 +18,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.SECRET_HOST }}
         aws-secret-access-key: ${{ secrets.SECRET_SSH }}
-        aws-region: sa-east-1c
+        aws-region: sa-east-1
 
     - name: Deploy to EC2
       run: |
