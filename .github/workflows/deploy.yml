@@ -24,7 +24,8 @@ jobs:
         $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
         #Copie os arquivos para o destino no servidor
-        $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}/" -Credential $credential
+        #$session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}/" -Credential $credential
+        $session = New-PSSession -ConnectionUri "http://18.228.170.70/" -Credential $credential
         Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}/publish/" -Recurse -Force -ToSession $session
         
         #Remova a sessão remota
