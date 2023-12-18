@@ -12,20 +12,26 @@ jobs:
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    # - name: List Published Files
-      # run: |
-        # $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
-        # Write-Host "Published Files:"
-        # $publishedFiles | ForEach-Object { Write-Host $_.FullName }
+    #- name: List Published Files
+    #  run: |
+    #    $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
+    #    Write-Host "Published Files:"
+    #    $publishedFiles | ForEach-Object { Write-Host $_.FullName }
 
     - name: Copy files with PowerShell
       run: |
-        #Configure a conexão remota (usando HTTP ou HTTPS)
+        # Habilitar temporariamente o tráfego não criptografado
+        Set-Item WSMan:\localhost\Client\AllowUnencrypted -Value $true
+        
+        # Adicionar o servidor à lista de hosts confiáveis
+        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
+        
+        # Configure a conexão remota (usando HTTP ou HTTPS)
         $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
-        #Copie os arquivos para o destino no servidor
-        $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}/" -Credential $credential
-        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}/publish/" -Recurse -Force -ToSession $session
+        # Copie os arquivos para o destino no servidor
+        $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
+        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}" -Recurse -Force -ToSession $session
         
-        #Remova a sessão remota
-        Remove-PSSession $session
+        # Remova a sessão remota
+        # Remove-PSSession $session
