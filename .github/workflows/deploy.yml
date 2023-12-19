@@ -15,17 +15,18 @@ jobs:
 
     - name: Build and Publish
       run: |
-        #  For example: dotnet publish -c Release -o publish
+        # Add your build and publish commands here
+        # For example: dotnet publish -c Release -o publish
 
     - name: Copy files to AWS Windows Server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SECRET_HOST }}
-        username: ${{ secrets.SECRET_USER }}
-        key: ${{ secrets.SECRET_SSH }}
-        port: 5986
-        script: |
-          $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
-          $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
+      run: |
+        $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*" # Caminho para os arquivos a serem copiados
+        $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}" # Substitua pelo caminho real no seu servidor
 
-          Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
+        $session = New-PSSession -ComputerName $env:AWS_SERVER_IP -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String $env:AWS_SERVER_PASSWORD -AsPlainText -Force)))
+        Copy-Item -Path $sourcePath -Destination $destinationPath -ToSession $session -Recurse -Force
+        Remove-PSSession $session
+      env:
+        AWS_SERVER_IP: ${{ secrets.SECRET_HOST }}
+        AWS_SERVER_USERNAME: ${{ secrets.SECRET_USER }}
+        AWS_SERVER_PASSWORD: ${{ secrets.SECRET_SSH }}
