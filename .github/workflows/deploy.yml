@@ -1,9 +1,9 @@
 name: Push-to-EC2
 
 on:
-  issues:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
