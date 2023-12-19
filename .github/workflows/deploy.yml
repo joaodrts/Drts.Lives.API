@@ -21,11 +21,9 @@ jobs:
     - name: Configure WinRM on AWS Windows Server
       run: |
         $session = Invoke-Command -ScriptBlock {
-          # Configurar o WinRM
-          winrm quickconfig
-          # Configurar regra de firewall para a porta 5985 (HTTP)
+          winrm quickconfig 
           New-NetFirewallRule -Name WINRM-HTTP-In-TCP -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5985
-        } -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String ${{ secrets.SECRET_SSH }} -AsPlainText -Force))) -ComputerName $env:AWS_SERVER_IP
+        } -Credential (New-Object PSCredential -ArgumentList @(${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -String ${{ secrets.SECRET_SSH }} -AsPlainText -Force))) -ComputerName ${{ secrets.SECRET_HOST }}
 
     - name: Copy files to AWS Windows Server
       run: |
