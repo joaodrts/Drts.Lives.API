@@ -23,7 +23,7 @@ jobs:
         $session = Invoke-Command -ScriptBlock {
           winrm quickconfig 
           New-NetFirewallRule -Name WINRM-HTTP-In-TCP -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5985
-        } -Credential (New-Object PSCredential -ArgumentList @(${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -String ${{ secrets.SECRET_SSH }} -AsPlainText -Force))) -ComputerName ${{ secrets.SECRET_HOST }}
+        } -Credential (New-Object PSCredential -ArgumentList @(${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -String ${{ secrets.SECRET_SSH }} -AsPlainText -Force)) -ComputerName ${{ secrets.SECRET_HOST }})
 
     - name: Copy files to AWS Windows Server
       run: |
