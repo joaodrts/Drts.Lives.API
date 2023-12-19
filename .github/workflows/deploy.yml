@@ -18,12 +18,21 @@ jobs:
         # Add your build and publish commands here
         # For example: dotnet publish -c Release -o publish
 
+    - name: Configure WinRM on AWS Windows Server
+      run: |
+        $session = Invoke-Command -ScriptBlock {
+          # Configurar o WinRM
+          winrm quickconfig
+          # Configurar regra de firewall para a porta 5985 (HTTP)
+          New-NetFirewallRule -Name WINRM-HTTP-In-TCP -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5985
+        } -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String $env:AWS_SERVER_PASSWORD -AsPlainText -Force))) -ComputerName $env:AWS_SERVER_IP
+
     - name: Copy files to AWS Windows Server
       run: |
-        $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*" # Caminho para os arquivos a serem copiados
-        $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}" # Substitua pelo caminho real no seu servidor
+        $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
+        $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
 
-        $session = New-PSSession -ComputerName $env:AWS_SERVER_IP -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String $env:AWS_SERVER_PASSWORD -AsPlainText -Force))) -Authentication Basic -Port 5986 -UseSSL:$true
+        $session = New-PSSession -ComputerName $env:AWS_SERVER_IP -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String $env:AWS_SERVER_PASSWORD -AsPlainText -Force))) -Authentication Basic -Port 5985 -UseSSL:$false
         Copy-Item -Path $sourcePath -Destination $destinationPath -ToSession $session -Recurse -Force
         Remove-PSSession $session
       env:
