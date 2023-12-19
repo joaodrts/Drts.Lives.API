@@ -1,37 +1,32 @@
 name: Push-to-EC2
+
 on:
-  push:
-    branches:
-      - main
+  issues:
+    types:
+      - closed
+
 jobs:
   deploy:
-    name: Deploy to Windows Server
     runs-on: windows-latest
+
     steps:
-    
-    - name: Checkout the files
-      uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-    - name: List Published Files
+    - name: Build and Publish
       run: |
-        $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
-        Write-Host "Published Files:"
-        $publishedFiles | ForEach-Object { Write-Host $_.FullName }
+        # Add your build and publish commands here
+        # For example: dotnet publish -c Release -o publish
 
-    - name: Copy files with PowerShell
-      run: |
-        # Habilitar temporariamente o tráfego não criptografado
-        Set-Item WSMan:\localhost\Client\AllowUnencrypted -Value $true
-        
-        # Adicionar o servidor à lista de hosts confiáveis
-        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
-        
-        # Configure a conexão remota (usando HTTP ou HTTPS)
-        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
-        
-        # Copie os arquivos para o destino no servidor
-        $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
-        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}" -Recurse -Force -ToSession $session
-        
-        # Remova a sessão remota
-        Remove-PSSession $session
+    - name: Copy files to AWS Windows Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SECRET_HOST }}
+        username: ${{ secrets.SECRET_USER }}
+        key: ${{ secrets.SECRET_SSH }}
+        port: 5986 # Porta padrão para WinRM
+        script: |
+          $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*" # Caminho para os arquivos a serem copiados
+          $destinationPath = ${{ secrets.SECRET_TARGET_DIR }} # Substitua pelo caminho real no seu servidor
+
+          Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
