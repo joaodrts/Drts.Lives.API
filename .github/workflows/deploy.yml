@@ -21,10 +21,8 @@ jobs:
     - name: Configure WinRM on AWS Windows Server
       run: |
         $session = Invoke-Command -ScriptBlock {
-          # Configurar o WinRM para aceitar conexões HTTPS
-          winrm quickconfig -transport:https
-          # Configurar regra de firewall para a porta 5986 (HTTPS)
-          New-NetFirewallRule -DisplayName "WINRM-HTTPS-In-TCP" -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5986
+          # Configurar o WinRM para aceitar conexões usando Kerberos
+          winrm quickconfig -transport:kerberos
         } -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -ComputerName "${{ secrets.SECRET_HOST }}"
 
     - name: Copy files to AWS Windows Server
@@ -32,7 +30,7 @@ jobs:
         $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
         $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
 
-        $session = New-PSSession -ComputerName "${{ secrets.SECRET_HOST }}" -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -Authentication Basic -Port 5986 -UseSSL:$true
+        $session = New-PSSession -ComputerName "${{ secrets.SECRET_HOST }}" -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -Authentication Kerberos
         Copy-Item -Path $sourcePath -Destination $destinationPath -ToSession $session -Recurse -Force
         Remove-PSSession $session
       env:
