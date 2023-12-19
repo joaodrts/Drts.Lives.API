@@ -36,6 +36,6 @@ jobs:
         Copy-Item -Path $sourcePath -Destination $destinationPath -ToSession $session -Recurse -Force
         Remove-PSSession $session
       env:
-        AWS_SERVER_IP: ${{ secrets.SECRET_HOST }}
-        AWS_SERVER_USERNAME: ${{ secrets.SECRET_USER }}
-        AWS_SERVER_PASSWORD: ${{ secrets.SECRET_SSH }}
+        AWS_SERVER_IP: "${{ secrets.SECRET_HOST }}"
+        AWS_SERVER_USERNAME: "${{ secrets.SECRET_USER }}"
+        AWS_SERVER_PASSWORD: "${{ secrets.SECRET_SSH }}"
