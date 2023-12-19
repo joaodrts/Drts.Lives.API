@@ -26,7 +26,7 @@ jobs:
         key: ${{ secrets.SECRET_SSH }}
         port: 5986 # Porta padrão para WinRM
         script: |
-          $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*" # Caminho para os arquivos a serem copiados
-          $destinationPath = ${{ secrets.SECRET_TARGET_DIR }} # Substitua pelo caminho real no seu servidor
+          $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
+          $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
 
           Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
