@@ -25,7 +25,7 @@ jobs:
           winrm quickconfig
           # Configurar regra de firewall para a porta 5985 (HTTP)
           New-NetFirewallRule -Name WINRM-HTTP-In-TCP -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5985
-        } -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String $env:AWS_SERVER_PASSWORD -AsPlainText -Force))) -ComputerName $env:AWS_SERVER_IP
+        } -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String ${{ secrets.SECRET_SSH }} -AsPlainText -Force))) -ComputerName $env:AWS_SERVER_IP
 
     - name: Copy files to AWS Windows Server
       run: |
