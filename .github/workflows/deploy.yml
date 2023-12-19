@@ -24,7 +24,7 @@ jobs:
         host: ${{ secrets.SECRET_HOST }}
         username: ${{ secrets.SECRET_USER }}
         key: ${{ secrets.SECRET_SSH }}
-        port: 5986 # Porta padrão para WinRM
+        port: 5986
         script: |
           $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
           $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
