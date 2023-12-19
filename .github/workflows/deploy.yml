@@ -23,14 +23,14 @@ jobs:
         $session = Invoke-Command -ScriptBlock {
           winrm quickconfig 
           New-NetFirewallRule -Name WINRM-HTTP-In-TCP -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5985
-        } -Credential -New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -String ${{ secrets.SECRET_SSH }} -AsPlainText -Force)
+        } -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -ComputerName "${{ secrets.SECRET_HOST }}"
 
     - name: Copy files to AWS Windows Server
       run: |
         $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
         $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
 
-        $session = New-PSSession -ComputerName $env:AWS_SERVER_IP -Credential (New-Object PSCredential -ArgumentList @($env:AWS_SERVER_USERNAME, (ConvertTo-SecureString -String $env:AWS_SERVER_PASSWORD -AsPlainText -Force))) -Authentication Basic -Port 5985 -UseSSL:$false
+        $session = New-PSSession -ComputerName "${{ secrets.SECRET_HOST }}" -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -Authentication Basic -Port 5985 -UseSSL:$false
         Copy-Item -Path $sourcePath -Destination $destinationPath -ToSession $session -Recurse -Force
         Remove-PSSession $session
       env:
