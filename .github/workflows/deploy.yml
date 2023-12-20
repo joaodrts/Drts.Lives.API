@@ -1,39 +1,38 @@
 name: Push-to-EC2
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
-    runs-on: windows-latest
-
+    name: Deploy to Windows Server
+    runs-on: self-hosted
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    
+    - name: Checkout the files
+      uses: actions/checkout@v3
 
-    - name: Build and Publish
+    #- name: List Published Files
+    #  run: |
+    #    $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
+    #    Write-Host "Published Files:"
+    #    $publishedFiles | ForEach-Object { Write-Host $_.FullName }
+
+    - name: Copy files with PowerShell
       run: |
-        # Adicione seus comandos de build e publish aqui
-        # Por exemplo: dotnet publish -c Release -o publish
-
-    - name: Configure WinRM on AWS Windows Server
-      run: |
-        $session = Invoke-Command -ScriptBlock {
-          # Configurar o WinRM para aceitar conexões usando Kerberos
-          winrm quickconfig -transport:kerberos
-        } -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -ComputerName "${{ secrets.SECRET_HOST }}"
-
-    - name: Copy files to AWS Windows Server
-      run: |
-        $sourcePath = "./Drts.Lives.API/API/bin/Release/net8.0/publish/*"
-        $destinationPath = "${{ secrets.SECRET_TARGET_DIR }}"
-
-        $session = New-PSSession -ComputerName "${{ secrets.SECRET_HOST }}" -Credential (New-Object PSCredential -ArgumentList @("${{ secrets.SECRET_USER }}", (ConvertTo-SecureString -String "${{ secrets.SECRET_SSH }}" -AsPlainText -Force))) -Authentication Kerberos
-        Copy-Item -Path $sourcePath -Destination $destinationPath -ToSession $session -Recurse -Force
-        Remove-PSSession $session
-      env:
-        AWS_SERVER_IP: "${{ secrets.SECRET_HOST }}"
-        AWS_SERVER_USERNAME: "${{ secrets.SECRET_USER }}"
-        AWS_SERVER_PASSWORD: "${{ secrets.SECRET_SSH }}"
+        # Habilitar temporariamente o tráfego não criptografado
+        Set-Item WSMan:\localhost\Client\AllowUnencrypted -Value $true
+        
+        # Adicionar o servidor à lista de hosts confiáveis
+        Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
+        
+        # Configure a conexão remota (usando HTTP ou HTTPS)
+        #$credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
+        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, ${{ secrets.SECRET_SSH}}
+        
+        # Copie os arquivos para o destino no servidor
+        $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
+        Copy-Item -Path "./Drts.Lives.API/API/bin/Release/net8.0/publish/" -Destination "${{ secrets.SECRET_TARGET_DIR }}" -Recurse -Force -ToSession $session
+        
+        # Remova a sessão remota
+        # Remove-PSSession $session
