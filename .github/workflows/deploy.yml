@@ -12,11 +12,11 @@ jobs:
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    #- name: List Published Files
-    #  run: |
-    #    $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
-    #    Write-Host "Published Files:"
-    #    $publishedFiles | ForEach-Object { Write-Host $_.FullName }
+    - name: List Published Files
+      run: |
+        $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
+        Write-Host "Published Files:"
+        $publishedFiles | ForEach-Object { Write-Host $_.FullName }
 
     - name: Copy files with PowerShell
       run: |
@@ -27,8 +27,7 @@ jobs:
         Set-Item WSMan:\localhost\Client\TrustedHosts -Value "${{ secrets.SECRET_HOST }}" -Force
         
         # Configure a conexão remota (usando HTTP ou HTTPS)
-        #$credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
-        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, ${{ secrets.SECRET_SSH}}
+        $credential = New-Object PSCredential -ArgumentList ${{ secrets.SECRET_USER }}, (ConvertTo-SecureString -AsPlainText -String "${{ secrets.SECRET_SSH }}")
         
         # Copie os arquivos para o destino no servidor
         $session = New-PSSession -ConnectionUri "http://${{ secrets.SECRET_HOST }}" -Credential $credential -Authentication Basic
