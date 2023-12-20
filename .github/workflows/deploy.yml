@@ -20,4 +20,6 @@ jobs:
 
     - name: Publish files
       run: |
+        Stop-Service -Name W3SVC
         Copy-Item -Path ./Drts.Lives.API/API/bin/Release/net8.0/publish/* -Destination ${{ secrets.SECRET_TARGET_DIR }}
+        Start-Service -Name W3SVC
