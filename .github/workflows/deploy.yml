@@ -1,23 +1,20 @@
-name: Push-to-EC2
+name: Deploy
 on:
   push:
     branches:
       - main
 jobs:
   deploy:
-    name: Deploy to Windows Server
+    name: Deploy to windows server
     runs-on: self-hosted
     steps:
     
     - name: Checkout the files
       uses: actions/checkout@v3
 
-    - name: List Published Files
-      run: |
-        $publishedFiles = Get-ChildItem -Recurse ./Drts.Lives.API/API/bin/Release/net8.0/publish/
-        Write-Host "Published Files:"
-        $publishedFiles | ForEach-Object { Write-Host $_.FullName }
+    - name: Compiling release
+      run: dotnet publish -c Release
 
-    - name: Copy files with PowerShell
+    - name: Publish files
       run: |
-        Copy-Item -Path ./Drts.Lives.API/API/bin/Release/net8.0/publish/* -Destination C:\inetpub\wwwroot\Drts.Live.API\Teste
+        Copy-Item -Path ./Drts.Lives.API/API/bin/Release/net8.0/publish/* -Destination ${{ secrets.SECRET_TARGET_DIR }}
